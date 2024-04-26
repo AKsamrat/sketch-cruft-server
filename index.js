@@ -54,12 +54,12 @@ async function run() {
 
     //for update craft load------
 
-    // app.get('/coffe/:id', async (req, res) => {
-    //   const id = req.params.id;
-    //   const query = { _id: new ObjectId(id) };
-    //   const result = await coffeCollection.findOne(query);
-    //   res.send(result);
-    // });
+    app.get('/singleCraft/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await craftCollection.findOne(query);
+      res.send(result);
+    });
 
     //craft posting in database
 
@@ -70,67 +70,68 @@ async function run() {
       res.send(result);
     });
 
-    app.put('/coffe/:id', async (req, res) => {
-      const id = req.params.id;
-      const filter = { _id: new ObjectId(id) };
-      const option = { upsert: true };
-      const updatedCoffe = req.body;
-      const coffe = {
-        $set: {
-          name: updatedCoffe.name,
-          chef: updatedCoffe.chef,
-          supplier: updatedCoffe.supplier,
-          taste: updatedCoffe.taste,
-          category: updatedCoffe.category,
-          details: updatedCoffe.details,
-          photo: updatedCoffe.photo,
-        },
-      };
-      const result = await coffeCollection.updateOne(filter, coffe, option);
-      res.send(result);
-    });
+    // app.put('/coffe/:id', async (req, res) => {
+    //   const id = req.params.id;
+    //   const filter = { _id: new ObjectId(id) };
+    //   const option = { upsert: true };
+    //   const updatedCoffe = req.body;
+    //   const coffe = {
+    //     $set: {
+    //       name: updatedCoffe.name,
+    //       chef: updatedCoffe.chef,
+    //       supplier: updatedCoffe.supplier,
+    //       taste: updatedCoffe.taste,
+    //       category: updatedCoffe.category,
+    //       details: updatedCoffe.details,
+    //       photo: updatedCoffe.photo,
+    //     },
+    //   };
+    //   const result = await coffeCollection.updateOne(filter, coffe, option);
+    //   res.send(result);
+    // });
 
-    app.delete('/coffe/:id', async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: new ObjectId(id) };
-      const result = await coffeCollection.deleteOne(query);
-      res.send(result);
-    });
+    // app.delete('/coffe/:id', async (req, res) => {
+    //   const id = req.params.id;
+    //   const query = { _id: new ObjectId(id) };
+    //   const result = await coffeCollection.deleteOne(query);
+    //   res.send(result);
+    // });
 
     //for user------------------------------------
 
-    app.post('/user', async (req, res) => {
-      const user = req.body;
-      console.log(user);
-      const result = await userCollection.insertOne(user);
+    // app.post('/user', async (req, res) => {
+    //   const user = req.body;
+    //   console.log(user);
+    //   const result = await userCollection.insertOne(user);
+    //   res.send(result);
+    // });
+
+    app.get('/myCraft/:email', async (req, res) => {
+      const result = await craftCollection
+        .find({ email: req.params.email })
+        .toArray();
       res.send(result);
     });
 
-    app.get('/user', async (req, res) => {
-      const cursor = userCollection.find();
-      const users = await cursor.toArray();
-      res.send(users);
-    });
+    // app.patch('/user', async (req, res) => {
+    //   const user = req.body;
+    //   const filter = { email: user.email };
+    //   const updateDoc = {
+    //     $set: {
+    //       lastLoggedAt: user.lastLoggedAt,
+    //     },
+    //   };
 
-    app.patch('/user', async (req, res) => {
-      const user = req.body;
-      const filter = { email: user.email };
-      const updateDoc = {
-        $set: {
-          lastLoggedAt: user.lastLoggedAt,
-        },
-      };
+    //   const result = await userCollection.updateOne(filter, updateDoc);
+    //   res.send(result);
+    // });
 
-      const result = await userCollection.updateOne(filter, updateDoc);
-      res.send(result);
-    });
-
-    app.delete('/user/:id', async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: new ObjectId(id) };
-      const result = await userCollection.deleteOne(query);
-      res.send(result);
-    });
+    // app.delete('/user/:id', async (req, res) => {
+    //   const id = req.params.id;
+    //   const query = { _id: new ObjectId(id) };
+    //   const result = await userCollection.deleteOne(query);
+    //   res.send(result);
+    // });
   } finally {
   }
 }
