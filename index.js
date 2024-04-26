@@ -44,22 +44,22 @@ async function run() {
     const craftCollection = database.collection('CRAFT');
     const categoryCollection = database.collection('CATEGORY');
 
-    //for coffe-----------------------------------
+    // for all Craft load-----------------------------------
 
-    app.get('/coffe', async (req, res) => {
-      const cursor = coffeCollection.find();
+    app.get('/allCraft', async (req, res) => {
+      const cursor = craftCollection.find();
       const result = await cursor.toArray();
       res.send(result);
     });
 
-    //for update coffe------
+    //for update craft load------
 
-    app.get('/coffe/:id', async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: new ObjectId(id) };
-      const result = await coffeCollection.findOne(query);
-      res.send(result);
-    });
+    // app.get('/coffe/:id', async (req, res) => {
+    //   const id = req.params.id;
+    //   const query = { _id: new ObjectId(id) };
+    //   const result = await coffeCollection.findOne(query);
+    //   res.send(result);
+    // });
 
     //craft posting in database
 
