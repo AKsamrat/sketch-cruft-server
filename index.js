@@ -54,8 +54,22 @@ async function run() {
 
     //for update craft load------
 
+    // app.get('/craftUpdate/:id', async (req, res) => {
+    //   const id = req.params.id;
+    //   const query = { _id: new ObjectId(id) };
+    //   const result = await craftCollection.findOne(query);
+    //   res.send(result);
+    // });
     app.get('/singleCraft/:id', async (req, res) => {
       const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await craftCollection.findOne(query);
+      res.send(result);
+    });
+
+    app.get('/craftUpdate/:id', async (req, res) => {
+      const id = req.params.id;
+      // console.log(id);
       const query = { _id: new ObjectId(id) };
       const result = await craftCollection.findOne(query);
       res.send(result);
@@ -70,41 +84,28 @@ async function run() {
       res.send(result);
     });
 
-    // app.put('/coffe/:id', async (req, res) => {
-    //   const id = req.params.id;
-    //   const filter = { _id: new ObjectId(id) };
-    //   const option = { upsert: true };
-    //   const updatedCoffe = req.body;
-    //   const coffe = {
-    //     $set: {
-    //       name: updatedCoffe.name,
-    //       chef: updatedCoffe.chef,
-    //       supplier: updatedCoffe.supplier,
-    //       taste: updatedCoffe.taste,
-    //       category: updatedCoffe.category,
-    //       details: updatedCoffe.details,
-    //       photo: updatedCoffe.photo,
-    //     },
-    //   };
-    //   const result = await coffeCollection.updateOne(filter, coffe, option);
-    //   res.send(result);
-    // });
-
-    // app.delete('/coffe/:id', async (req, res) => {
-    //   const id = req.params.id;
-    //   const query = { _id: new ObjectId(id) };
-    //   const result = await coffeCollection.deleteOne(query);
-    //   res.send(result);
-    // });
-
-    //for user------------------------------------
-
-    // app.post('/user', async (req, res) => {
-    //   const user = req.body;
-    //   console.log(user);
-    //   const result = await userCollection.insertOne(user);
-    //   res.send(result);
-    // });
+    app.put('/updateCraftData/:id', async (req, res) => {
+      const id = req.params.id;
+      const filter = { _id: new ObjectId(id) };
+      const option = { upsert: true };
+      const updatedCraft = req.body;
+      const craft = {
+        $set: {
+          name: updatedCraft.name,
+          subCategory: updatedCraft.subCategory,
+          description: updatedCraft.description,
+          price: updatedCraft.price,
+          rating: updatedCraft.rating,
+          customization: updatedCraft.customization,
+          photo: updatedCraft.photo,
+          processingTime: updatedCraft.processingTime,
+          stockStatus: updatedCraft.stockStatus,
+        },
+      };
+      console.log(craft);
+      const result = await craftCollection.updateOne(filter, craft, option);
+      res.send(result);
+    });
 
     app.get('/myCraft/:email', async (req, res) => {
       const result = await craftCollection
@@ -113,25 +114,12 @@ async function run() {
       res.send(result);
     });
 
-    // app.patch('/user', async (req, res) => {
-    //   const user = req.body;
-    //   const filter = { email: user.email };
-    //   const updateDoc = {
-    //     $set: {
-    //       lastLoggedAt: user.lastLoggedAt,
-    //     },
-    //   };
-
-    //   const result = await userCollection.updateOne(filter, updateDoc);
-    //   res.send(result);
-    // });
-
-    // app.delete('/user/:id', async (req, res) => {
-    //   const id = req.params.id;
-    //   const query = { _id: new ObjectId(id) };
-    //   const result = await userCollection.deleteOne(query);
-    //   res.send(result);
-    // });
+    app.delete('/craftDelete/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await craftCollection.deleteOne(query);
+      res.send(result);
+    });
   } finally {
   }
 }
