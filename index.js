@@ -52,6 +52,20 @@ async function run() {
       res.send(result);
     });
 
+    //category data receive
+
+    app.get('/artAndCraftCategory', async (req, res) => {
+      const cursor = categoryCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    });
+    app.get('/category/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await categoryCollection.findOne(query);
+      res.send(result);
+    });
+
     //for update craft load------
 
     // app.get('/craftUpdate/:id', async (req, res) => {
