@@ -10,7 +10,7 @@ const config = process.env;
 // const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.telyg.mongodb.net/?retryWrites=true&w=majority`;
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.nj7eiar.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
-console.log(uri);
+// console.log(uri);
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -30,7 +30,7 @@ client
 
 // Middleware Connections
 const corsConfig = {
-  origin: 'http://localhost:5174',
+  origin: 'https://aksamrat-10thassignment.netlify.app',
   credentials: true,
 };
 app.use(cors(corsConfig));
