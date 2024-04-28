@@ -7,10 +7,9 @@ require('dotenv').config();
 const config = process.env;
 
 // Mongo DB Connections
-// const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.telyg.mongodb.net/?retryWrites=true&w=majority`;
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.nj7eiar.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
-// console.log(uri);
+
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -66,20 +65,15 @@ async function run() {
       res.send(result);
     });
 
-    //for update craft load------
-
-    // app.get('/craftUpdate/:id', async (req, res) => {
-    //   const id = req.params.id;
-    //   const query = { _id: new ObjectId(id) };
-    //   const result = await craftCollection.findOne(query);
-    //   res.send(result);
-    // });
+    //single craft data load
     app.get('/singleCraft/:id', async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
       const result = await craftCollection.findOne(query);
       res.send(result);
     });
+
+    //for craft update data load for showing in ui
 
     app.get('/craftUpdate/:id', async (req, res) => {
       const id = req.params.id;
@@ -97,6 +91,8 @@ async function run() {
       const result = await craftCollection.insertOne(newCraft);
       res.send(result);
     });
+
+    //craft update data
 
     app.put('/updateCraftData/:id', async (req, res) => {
       const id = req.params.id;
